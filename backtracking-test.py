@@ -1,16 +1,13 @@
 def is_valid_vertex_cover(graph, vertex_cover):
-    # check if all edges are covered
-    # It ensures that for every edge, at least one of its endpoints is in the vertex cover.
     for u in graph:
         for v in graph[u]:
             if u not in vertex_cover and v not in vertex_cover:
-                return False # If an edge is not covered, return False
+                return False
+    
     return True
 
-# tries to find a valid vertex cover of size k or less using backtracking. 
 def vertex_cover_backtracking(graph, k):
     def backtrack(vertex_cover, index):
-        # At each step, it either includes or excludes the current vertex (controlled by the index).
         if is_valid_vertex_cover(graph, vertex_cover):
             return vertex_cover
         if len(vertex_cover) > k or index >= len(graph):
@@ -40,13 +37,3 @@ graph = {
 # K = số lượng đỉnh tối đa để thử nghiệm
 k = 3
 print("Vertex Cover (Backtracking):", vertex_cover_backtracking(graph, k))
-
-#     3
-#     |
-#     1 --- 4
-#    /      |
-#   0       |
-#    \      |
-#     2 ----'
-
-# => Res = {1, 2}
