@@ -1,13 +1,14 @@
 import heapq
 
 # •	Problem: Each time, you are finding the vertex with the maximum number of uncovered edges by scanning all vertices. This takes O(n) time for each iteration.
+# max_degree_vertex = max(graph, key=lambda u: len([v for v in graph[u] if (u, v) not in covered_edges and (v, u) not in covered_edges]))
 # •	Optimization: Use a max-heap (priority queue) to efficiently retrieve the vertex with the maximum number of uncovered edges. This way, you can reduce the time complexity of finding the max-degree vertex to O(log n).
 
 def vertex_cover_greedy_optimized(graph):
     covered_edges = set()
     vertex_cover = set()
 
-    # Initialize the max heap with negative degrees (because heapq is a min-heap by default)
+    # Create a max-heap that stores all the vertices based on their degree with negative degrees (because heapq is a min-heap by default) to still use max heap
     heap = [(-len(graph[u]), u) for u in graph]
     heapq.heapify(heap)
     

@@ -149,22 +149,22 @@ def run_all_tests(test_cases):
             pq_greedy_res = f"Error: {e}"
             pq_greedy_time = "N/A"
         
-        try:
-            k = len(graph)
-            start_time = time.time()
-            backtracking_result = vertex_cover_backtracking(graph, k)
-            backtracking_time = time.time() - start_time
-        except Exception as e:
-            backtracking_result = f"Error: {e}"
-            backtracking_time = "N/A"
+        # try:
+        #     k = len(graph)
+        #     start_time = time.time()
+        #     backtracking_result = vertex_cover_backtracking(graph, k)
+        #     backtracking_time = time.time() - start_time
+        # except Exception as e:
+        #     backtracking_result = f"Error: {e}"
+        #     backtracking_time = "N/A"
         
-        try:
-            start_time = time.time()
-            dynamic_backtracking_result = vertex_cover_dynamic_ordering(graph, k)
-            dynamic_backtracking_time = time.time() - start_time
-        except Exception as e:
-            dynamic_backtracking_result = f"Error: {e}"
-            dynamic_backtracking_time = "N/A"
+        # try:
+        #     start_time = time.time()
+        #     dynamic_backtracking_result = vertex_cover_dynamic_ordering(graph, k)
+        #     dynamic_backtracking_time = time.time() - start_time
+        # except Exception as e:
+        #     dynamic_backtracking_result = f"Error: {e}"
+        #     dynamic_backtracking_time = "N/A"
         
         # Append results and times to the list for the table
         results.append([
