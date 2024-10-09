@@ -1,11 +1,7 @@
-# main.py
-
-# Import all four functions from the respective files
-# Import functions from the backtrack and greedy directories
-from backtrack.backtracking import vertex_cover_backtracking
-from backtrack.backtrack_optimized import vertex_cover_dynamic_ordering
 from greedy.greedy import vertex_cover_greedy
 from greedy.greedy_optimized import vertex_cover_greedy_optimized
+from backtrack.backtrack_optimized import vertex_cover_tree
+from backtrack.backtracking import vertex_cover_backtracking
 from tabulate import tabulate
 import time
 
@@ -124,6 +120,24 @@ test_cases = [
     }
 ]
 
+# Helper function to convert graph (adjacency list) to edge list
+def convert_to_edge_list(graph):
+    """Convert an adjacency list to an edge list."""
+    edge_list = []
+    for u in graph:
+        for v in graph[u]:
+            if (u, v) not in edge_list and (v, u) not in edge_list:  # Avoid duplicates
+                edge_list.append((u, v))
+    return edge_list
+
+def convert_to_edge_list(graph):
+    """Convert an adjacency list to an edge list."""
+    edge_list = []
+    for u in graph:
+        for v in graph[u]:
+            if (u, v) not in edge_list and (v, u) not in edge_list:  # Avoid duplicates
+                edge_list.append((u, v))
+    return edge_list
 
 def run_all_tests(test_cases):
     results = []
@@ -131,6 +145,8 @@ def run_all_tests(test_cases):
     for i, test_case in enumerate(test_cases):
         graph = test_case['graph']
         description = test_case['description']
+        edge_list = convert_to_edge_list(graph)  # Convert to edge list for dynamic solution
+        n = len(graph)
         
         # Collect results and execution time for each algorithm
         try:
@@ -148,31 +164,22 @@ def run_all_tests(test_cases):
         except Exception as e:
             pq_greedy_res = f"Error: {e}"
             pq_greedy_time = "N/A"
-        
-        # try:
-        #     k = len(graph)
-        #     start_time = time.time()
-        #     backtracking_result = vertex_cover_backtracking(graph, k)
-        #     backtracking_time = time.time() - start_time
-        # except Exception as e:
-        #     backtracking_result = f"Error: {e}"
-        #     backtracking_time = "N/A"
-        
+
+        # # Backtracking Algorithm
         # try:
         #     start_time = time.time()
-        #     dynamic_backtracking_result = vertex_cover_dynamic_ordering(graph, k)
-        #     dynamic_backtracking_time = time.time() - start_time
+        #     backtrack_result = vertex_cover_backtracking(graph, n)  # Try for size n or less
+        #     backtrack_time = time.time() - start_time
         # except Exception as e:
-        #     dynamic_backtracking_result = f"Error: {e}"
-        #     dynamic_backtracking_time = "N/A"
-        
+        #     backtrack_result = f"Error: {e}"
+        #     backtrack_time = "N/A"
+         
         # Append results and times to the list for the table
         results.append([
             description, 
-            greedy_result, f"{greedy_time:.6f}s", 
-            pq_greedy_res, f"{pq_greedy_time:.6f}s", 
-            # backtracking_result, f"{backtracking_time:.6f}s", 
-            # dynamic_backtracking_result, f"{dynamic_backtracking_time:.6f}s"
+            greedy_result, f"{greedy_time:.6f}s" if isinstance(greedy_time, float) else greedy_time,
+            pq_greedy_res, f"{pq_greedy_time:.6f}s" if isinstance(pq_greedy_time, float) else pq_greedy_time,
+            # backtrack_result, f"{backtrack_time:.6f}s" if isinstance(backtrack_time, float) else backtrack_time,
         ])
     
     return results
@@ -182,5 +189,4 @@ results = run_all_tests(test_cases)
 
 # Print the results as a table using tabulate
 table_headers = ["Test Case", "Greedy", "Greedy Time", "PQ Greedy", "PQ Greedy Time"]
-                #  "Backtracking", "Backtracking Time", "Dynamic Backtracking", "Dynamic Backtracking Time"]
 print(tabulate(results, headers=table_headers, tablefmt="grid"))

@@ -15,13 +15,26 @@ def create_complete_bipartite_graph(m, n):
     
     return graph
 
-test_case = {
-    "graph": create_complete_bipartite_graph(100, 100),
-    "description": "Complete Bipartite Graph K_{100,100}"
-}
+# List of test cases with different bipartite graphs
+test_cases = [
+    {
+        "graph": create_complete_bipartite_graph(100, 100),
+        "description": "Bipartite Graph K_{100,100}",
+    },
+    {
+        "graph": create_complete_bipartite_graph(200, 200),
+        "description": "Bipartite Graph K_{200,200}",
+    },
+    {
+        "graph": create_complete_bipartite_graph(300, 300),
+        "description": "Bipartite Graph K_{300,300}",
+    }
+]
 
+# Function to run a single test
 def run_single_test(test_case):
     graph = test_case['graph']
+    description = test_case['description']
     
     results = []
     
@@ -49,15 +62,24 @@ def run_single_test(test_case):
 
     # Add execution times to the results list
     results.append([
-        "Bipartite Graph K_{100,100}",  
-        f"{greedy_time:.6f}s",  
-        f"{pq_greedy_time:.6f}s", 
-        percentage_difference_str
+        description,  # Test case description
+        f"{greedy_time:.6f}s" if greedy_time != "N/A" else "N/A",  # Greedy time
+        f"{pq_greedy_time:.6f}s" if pq_greedy_time != "N/A" else "N/A",  # PQ Greedy time
+        percentage_difference_str  # Percentage difference
     ])
     
     return results
 
-results = run_single_test(test_case)
+# Function to run all test cases and collect results
+def run_all_tests(test_cases):
+    all_results = []
+    for test_case in test_cases:
+        all_results.extend(run_single_test(test_case))
+    return all_results
 
+# Run all tests and collect results
+results = run_all_tests(test_cases)
+
+# Print the results as a table
 table_headers = ["Test Case", "Greedy Time", "PQ Greedy Time", "Percentage Difference"]
 print(tabulate(results, headers=table_headers, tablefmt="grid"))
