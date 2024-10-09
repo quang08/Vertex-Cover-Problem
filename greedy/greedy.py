@@ -28,6 +28,14 @@ def vertex_cover_greedy(graph):
 #     4: [1, 2]
 # }
 
+# graph = {
+#     0: [1, 4],
+#     1: [2, 0],
+#     2: [1, 3],
+#     3: [3, 4],
+#     4: [3, 0]
+# }
+
 # #     3
 # #     |
 # #     1 --- 4
@@ -38,7 +46,7 @@ def vertex_cover_greedy(graph):
 
 # # => Res = {1, 2}
 
-# print("Vertex Cover (Greedy):", vertex_cover_greedy(graph))
+print("Vertex Cover (Greedy):", vertex_cover_greedy(graph))
 
 # test_cases = [
 #     # Test Case 1: Simple Single Edge Graph

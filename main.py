@@ -121,14 +121,14 @@ test_cases = [
 ]
 
 # Helper function to convert graph (adjacency list) to edge list
-def convert_to_edge_list(graph):
-    """Convert an adjacency list to an edge list."""
-    edge_list = []
-    for u in graph:
-        for v in graph[u]:
-            if (u, v) not in edge_list and (v, u) not in edge_list:  # Avoid duplicates
-                edge_list.append((u, v))
-    return edge_list
+# def convert_to_edge_list(graph):
+#     """Convert an adjacency list to an edge list."""
+#     edge_list = []
+#     for u in graph:
+#         for v in graph[u]:
+#             if (u, v) not in edge_list and (v, u) not in edge_list:  # Avoid duplicates
+#                 edge_list.append((u, v))
+#     return edge_list
 
 def convert_to_edge_list(graph):
     """Convert an adjacency list to an edge list."""
