@@ -81,5 +81,5 @@ def run_all_tests(test_cases):
 results = run_all_tests(test_cases)
 
 # Print the results as a table
-table_headers = ["Test Case", "Greedy Time", "PQ Greedy Time", "Percentage Difference"]
+table_headers = ["Test Case", "Backtrack", "Optimized Backtrack", "Percentage Difference"]
 print(tabulate(results, headers=table_headers, tablefmt="grid"))
