@@ -75,7 +75,7 @@ test_cases = [
     # Test Case 7: Cyclic Graph
     {
         "graph": {
-            0: [1],
+            0: [1, 4],
             1: [0, 2],
             2: [1, 3],
             3: [2, 4],
