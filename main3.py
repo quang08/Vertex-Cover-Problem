@@ -1,5 +1,8 @@
 from backtrack.backtrack_optimized import VertexCoverOptimized
 from backtrack.backtracking import VertexCover
+from tabulate import tabulate
+import copy
+
 # Vertex Cover Problem
 # Given a graph, find the minimum number of vertices that can be included in a vertex cover to cover all the edges.
 
@@ -73,7 +76,7 @@ test_cases = [
     # Test Case 7: Cyclic Graph
     {
         "graph": {
-            0: [1],
+            0: [1, 4],
             1: [0, 2],
             2: [1, 3],
             3: [2, 4],
@@ -118,14 +121,34 @@ test_cases = [
     }
 ]
 
-for test in test_cases:
-    graph = test["graph"]
-    print(f"Test case: {test['description']}")
-    vc = VertexCoverOptimized(graph)  # Tạo đối tượng VertexCover
-    result = vc.find_vertex_cover()  # Tìm tập đỉnh phủ
-    print(f"Optimal vertex cover: {result}")
+def run_single_test(test_case):
+    graph = test_case['graph']
+    description = test_case['description']
+    results = []
+    
+    try:
+        vc_optimized = VertexCoverOptimized(graph).find_vertex_cover()
+    except Exception as e:
+        vc_optimized = f"Error in Optimized: {e}, Graph: {graph}"
+    
+    try:
+        vc_original = VertexCover(graph).find_vertex_cover()
+    except Exception as e:
+        vc_original = f"Error in Original: {e}, Graph: {graph}"
 
-    vc1 = VertexCover(graph)
-    result1 = vc1.find_vertex_cover()
-    print(f"Original vertex cover: {result}")
-    print(f"Explanation: {test['Explanation']}\n")
+    results.append([description, vc_optimized, vc_original])
+    
+    return results
+
+
+def run_all_tests(test_cases):
+    all_results = []
+    for test_case in test_cases:
+        all_results.extend(run_single_test(test_case))
+    return all_results
+
+results = run_all_tests(test_cases)
+
+# Print results in tabular format
+table_headers = ["Test Case", "Optimized Vertex Cover", "Original Vertex Cover"]
+print(tabulate(results, headers=table_headers, tablefmt="grid"))
