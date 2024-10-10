@@ -46,7 +46,7 @@ def vertex_cover_greedy(graph):
 
 # # => Res = {1, 2}
 
-print("Vertex Cover (Greedy):", vertex_cover_greedy(graph))
+# print("Vertex Cover (Greedy):", vertex_cover_greedy(graph))
 
 # test_cases = [
 #     # Test Case 1: Simple Single Edge Graph
